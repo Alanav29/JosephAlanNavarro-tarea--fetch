@@ -1,0 +1,45 @@
+.mt-45 {
+	margin-top: 45vh;
+}
+
+.user-card {
+	width: 250px;
+	margin: 0 15px 30px;
+	overflow: hidden;
+	border-radius: 28px;
+}
+.user-card-body {
+	display: block;
+	padding: 30px 20px;
+	background-color: #121212;
+	overflow: hidden;
+	position: relative;
+	border-radius: 50px;
+}
+
+.user-card-body:hover .user-card-bg {
+	transform: scale(10);
+}
+.user-card-info {
+	width: auto;
+	z-index: 2;
+	position: relative;
+}
+
+.user-card-bg {
+	height: 128px;
+	width: 128px;
+	background-color: #f9b234;
+	z-index: 1;
+	position: absolute;
+	top: -75px;
+	right: -75px;
+	transition: all 0.5s ease;
+	border-radius: 50px;
+}
+
+.user-card-img img {
+	width: 100px;
+	border-radius: 999px;
+	aspect-ratio: 1/1;
+}
