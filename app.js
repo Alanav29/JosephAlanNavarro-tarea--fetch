@@ -3,7 +3,14 @@ const apiUrl = "https://reqres.in/api/users?delay=3";
 const showUsersBtn = document.querySelector("#show-users-btn");
 const initialSpinnerRef = document.querySelector("#initial-spinner");
 const usersDataContainerRef = document.querySelector("#users-data-container");
-const titleRef = document.querySelector("#title");
+const titleRef = document.querySelector("#titles");
+const numFetchTitleRef = document.querySelector("#num-fetch-title");
+let numFetchCounter = 0;
+
+const updateFetchTitle = () => {
+	numFetchCounter++;
+	numFetchTitleRef.innerHTML = `Peticiones nuevas ${numFetchCounter}`;
+};
 
 /**
  * Receives a list of users and prints every user in a html card list at the DOM
@@ -30,7 +37,6 @@ const printUsersArray = (usersArray) => {
 		`;
 	});
 	userCardsArray = userCardsArray.join("");
-
 	return (usersDataContainerRef.innerHTML = userCardsArray);
 };
 
@@ -67,6 +73,7 @@ const saveUsersDataLocalStorage = (data) => {
  */
 const getUsersData = async () => {
 	let usersData;
+	updateFetchTitle();
 	try {
 		const response = await fetch(apiUrl);
 		const dataResponse = await response.json();
@@ -126,11 +133,13 @@ const startApp = async () => {
 		await printUsersArray(userData);
 		titleRef.classList.remove("mt-45");
 		initialSpinnerRef.classList.add("d-none");
+		numFetchTitleRef.classList.remove("d-none");
 		setInterval(getPrintUsers, 60000);
 	} else {
 		await getPrintUsers();
 		titleRef.classList.remove("mt-45");
 		initialSpinnerRef.classList.add("d-none");
+		numFetchTitleRef.classList.remove("d-none");
 		setInterval(getPrintUsers, 60000);
 	}
 };
