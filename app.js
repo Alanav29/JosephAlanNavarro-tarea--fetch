@@ -5,6 +5,11 @@ const initialSpinnerRef = document.querySelector("#initial-spinner");
 const usersDataContainerRef = document.querySelector("#users-data-container");
 const titleRef = document.querySelector("#title");
 
+/**
+ * Receives a list of users and prints every user in a html card list at the DOM
+ * @param {*} usersArray This array contains a group of users
+ * @returns the execution of a function that prints the users at the DOM.
+ */
 const printUsersArray = (usersArray) => {
 	let userCardsArray = usersArray.map((user) => {
 		return `
@@ -102,6 +107,9 @@ const validateLocalStorageData = () => {
 
 // 27/11/2023 Se comprobaron las funciones creadas hasta este punto todo ok
 
+/**
+ * Brings users data from the server and prints it on the DOM
+ */
 const getPrintUsers = async () => {
 	const usersData = await getUsersData();
 	printUsersArray(usersData);
@@ -118,7 +126,6 @@ const startApp = async () => {
 		await printUsersArray(userData);
 		titleRef.classList.remove("mt-45");
 		initialSpinnerRef.classList.add("d-none");
-		setTimeout(getPrintUsers, timeStamp);
 		setInterval(getPrintUsers, 60000);
 	} else {
 		await getPrintUsers();
