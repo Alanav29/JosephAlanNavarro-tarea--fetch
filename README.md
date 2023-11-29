@@ -1,6 +1,6 @@
 # JosephAlanNavarro-tarea--fetch
 
-## Tarea api fetch generation
+## -------Tarea api fetch generation--------
 
 ------Indicaciones para cumplir la tarea-------
 
@@ -26,7 +26,7 @@
 
 --Usa estilos con Bootstrap.
 
---------Orden de la pagina---------
+## --------Orden de la pagina---------
 
 ---Caso 1---- Existe informacion en el local Storage y tiene menos de un minuto
 
