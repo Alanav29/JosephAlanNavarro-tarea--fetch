@@ -2,8 +2,8 @@ const apiUrl = "https://reqres.in/api/users?delay=3";
 
 const showUsersBtn = document.querySelector("#show-users-btn");
 const initialSpinnerRef = document.querySelector("#initial-spinner");
-
 const usersDataContainerRef = document.querySelector("#users-data-container");
+const titleRef = document.querySelector("#title");
 
 const printUsersArray = (usersArray) => {
 	let userCardsArray = usersArray.map((user) => {
@@ -97,30 +97,35 @@ const validateLocalStorageData = () => {
 		? usersDataWithTimeStamp.timeStamp
 		: 0;
 
-	return timeStampValidity(timeStamp);
+	return timeStamp;
 };
-
-// getUsersData();
-// setTimeout(validateLocalStorageData, 70000);
 
 // 27/11/2023 Se comprobaron las funciones creadas hasta este punto todo ok
 
-const titleRef = document.querySelector("#title");
+const getPrintUsers = async () => {
+	const usersData = await getUsersData();
+	printUsersArray(usersData);
+};
 
 /**
  * Validates if the app needs update the users data at the start of the app
  * and prints the users data at the DOM.
  */
 const startApp = async () => {
-	if (validateLocalStorageData()) {
+	const timeStamp = validateLocalStorageData();
+	if (timeStampValidity(timeStamp)) {
 		const userData = readLocalStorage().users;
-		printUsersArray(userData);
+		await printUsersArray(userData);
+		titleRef.classList.remove("mt-45");
+		initialSpinnerRef.classList.add("d-none");
+		setTimeout(getPrintUsers, timeStamp);
+		setInterval(getPrintUsers, 60000);
 	} else {
-		const usersData = await getUsersData();
-		printUsersArray(usersData);
+		await getPrintUsers();
+		titleRef.classList.remove("mt-45");
+		initialSpinnerRef.classList.add("d-none");
+		setInterval(getPrintUsers, 60000);
 	}
-	titleRef.classList.remove("mt-45");
-	initialSpinnerRef.classList.add("d-none");
 };
 
 /**Inicia el flujo de la app y cambia estilos a botón inicial */
